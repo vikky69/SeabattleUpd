@@ -32,7 +32,7 @@ public class Game {
         return finished;
     }
 
-    public Player getOppositePlayer() {
+    private Player getOppositePlayer() {
         return player1Move ? player2 : player1;
     }
 
@@ -69,6 +69,8 @@ public class Game {
             ship.hit(addr);
             if (ship.isKilled()) {
                 ship.markKill(currentEnemyField);
+                ship.markDeadZone(currentEnemyField);
+                ship.markDeadZone(oppositeMyField);
             } else {
                 currentEnemyField.setCell(addr, CellContent.HIT);
             }

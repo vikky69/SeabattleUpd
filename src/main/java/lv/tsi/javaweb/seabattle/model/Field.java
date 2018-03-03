@@ -145,5 +145,36 @@ public class Field {
                 field.setCell(addr, CellContent.KILL);
             }
         }
+
+        public void markDeadZone(Field field) {
+            for (String addr : addresses) {
+                char col = addr.charAt(0);
+                int row = Integer.parseInt(addr.substring(1));
+                String topLeftAddr = "" + (char) (col - 1) + (row - 1);
+                String topRightAddr = "" + (char) (col + 1) + (row - 1);
+                String bottomLeftAddr = "" + (char) (col - 1) + (row + 1);
+                String bottomRightAddr = "" + (char) (col + 1) + (row + 1);
+                String topAddr = "" + col + (row-1);
+                String bottomAddr = "" + col + (row + 1);
+                String leftAddr = "" + (char) (col - 1) + (row );
+                String rightAddr = "" + (char) (col + 1) + (row);
+                field.setCell(topLeftAddr, CellContent.MISS);
+                field.setCell(topRightAddr, CellContent.MISS);
+                field.setCell(bottomLeftAddr, CellContent.MISS);
+                field.setCell(bottomRightAddr, CellContent.MISS);
+                if (getCell(bottomAddr) != CellContent.KILL ){
+                    field.setCell(bottomAddr, CellContent.MISS);
+                }
+                if (getCell(rightAddr) != CellContent.KILL ){
+                    field.setCell(rightAddr, CellContent.MISS);
+                }
+                if (getCell(topAddr) != CellContent.KILL){
+                    field.setCell(topAddr, CellContent.MISS);
+                }
+                if (getCell(leftAddr) != CellContent.KILL){
+                    field.setCell(leftAddr, CellContent.MISS);
+                }
+            }
+        }
     }
 }
